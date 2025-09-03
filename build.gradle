@@ -28,6 +28,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework:spring-aspects'
 	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.zalando:logbook-spring-boot-starter:3.9.0'
 	compileOnly 'org.projectlombok:lombok'
