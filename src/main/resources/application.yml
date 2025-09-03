@@ -1,0 +1,22 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: mini-core-banking
+  profiles:
+    active: dev
+  flyway:
+    enabled: true
+  jackson:
+    time-zone: Asia/Jakarta
+
+logbook:
+  format:
+    style: splunk
+
+logging:
+  level:
+    #set for logbook write into log
+    org.zalando.logbook: TRACE
