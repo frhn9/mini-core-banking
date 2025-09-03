@@ -1,8 +1,6 @@
-
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: gemini
       changes:
         - createTable:
             tableName: transactions
