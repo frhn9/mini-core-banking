@@ -1,0 +1,4 @@
+
+databaseChangeLog:
+  - include:
+      file: db/changelog/migration/01-initial-schema.yml
