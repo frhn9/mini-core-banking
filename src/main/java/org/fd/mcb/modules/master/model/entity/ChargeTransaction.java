@@ -14,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.fd.mcb.modules.master.enums.FeeType;
@@ -26,9 +25,9 @@ import org.fd.mcb.modules.master.enums.FeeType;
 public class ChargeTransaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_id", referencedColumnName = "id")

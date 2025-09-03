@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.fd.mcb.modules.staff.enums.StaffRole;
@@ -23,15 +22,15 @@ import org.fd.mcb.modules.staff.enums.StaffStatus;
 public class Staff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "username", length = 50, unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
