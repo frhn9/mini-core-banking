@@ -1,7 +1,6 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: fadhyl
       changes:
         - createTable:
             tableName: customers
@@ -51,6 +50,9 @@ databaseChangeLog:
               - column:
                   name: status
                   type: VARCHAR(50)
+              - column:
+                  name: account_balance_derived
+                  type: DECIMAL(18, 2)
 
         - createTable:
             tableName: bank_accounts
