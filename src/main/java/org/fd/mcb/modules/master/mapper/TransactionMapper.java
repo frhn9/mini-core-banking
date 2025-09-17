@@ -1,4 +1,4 @@
-package org.fd.mcb.modules.transaction.mapper;
+package org.fd.mcb.modules.master.mapper;
 
 import org.fd.mcb.modules.master.model.entity.Transaction;
 import org.fd.mcb.modules.transaction.dto.context.TransactionContext;

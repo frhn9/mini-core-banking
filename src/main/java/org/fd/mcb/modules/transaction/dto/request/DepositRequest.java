@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @Setter
 public class DepositRequest {
 
+    private String accountNumber;
+
     private BigDecimal amount;
 
 }
