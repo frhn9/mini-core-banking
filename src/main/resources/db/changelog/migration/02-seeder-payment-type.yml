@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: fadhyl
+      changes:
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "DEPOSIT"
+              - column:
+                  name: description
+                  value: "Deposit transaction"

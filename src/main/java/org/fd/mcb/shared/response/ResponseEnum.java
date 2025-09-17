@@ -10,6 +10,9 @@ public enum ResponseEnum {
   SAVINGS_ACCOUNT_NOT_FOUND("savings_account_not_found", "savings.account.not.found", HttpStatus.NOT_FOUND),
   PAYMENT_TYPE_NOT_FOUND("payment_type_not_found", "payment.type.not.found", HttpStatus.NOT_FOUND),
   USER_BLOCKED_BY_BANK("user_blocked_by_bank", "user.blocked.by.bank", HttpStatus.FORBIDDEN),
+  BANK_ACCOUNT_NOT_FOUND("bank_account_not_found", "bank.account.not.found", HttpStatus.NOT_FOUND),
+  BANK_ACCOUNT_NOT_ACTIVE("bank_account_not_active", "bank.account.not.active", HttpStatus.BAD_REQUEST),
+  INVALID_AMOUNT("invalid_amount", "invalid.amount", HttpStatus.BAD_REQUEST),
 
   INVALID_PARAM("invalid_param", "invalid.param", HttpStatus.BAD_REQUEST),
   INTERNAL_SERVER_ERROR("internal_server_error", "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);
