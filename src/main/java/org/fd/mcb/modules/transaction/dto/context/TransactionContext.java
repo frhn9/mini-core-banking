@@ -2,10 +2,8 @@ package org.fd.mcb.modules.transaction.dto.context;
 
 import lombok.Builder;
 import lombok.Data;
-import org.fd.mcb.modules.journalentry.model.entity.JournalEntry;
 import org.fd.mcb.modules.master.model.entity.BankAccount;
 import org.fd.mcb.modules.master.model.entity.PaymentType;
-import org.fd.mcb.modules.master.model.entity.Transaction;
 
 import java.math.BigDecimal;
 

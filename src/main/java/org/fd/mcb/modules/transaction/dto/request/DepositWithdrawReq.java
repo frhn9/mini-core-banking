@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class DepositRequest {
+public class DepositWithdrawReq {
 
     private String accountNumber;
 

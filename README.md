@@ -13,10 +13,10 @@ Progress :
 - [ ] **Staff Authentication**
   - This provides internal access to the banking system for employees. It typically uses a role-based access control (RBAC) system, where each staff member has a specific role (e.g., Teller, Admin, Auditor). This role determines what actions they can perform and what data they can access, ensuring that employees only have access to the information necessary for their job.
 
-- [ ] **Deposits**
+- [✅] **Deposits**
   - This feature allows customers to add funds to their bank accounts. This can be done through various channels, such as in-person at a branch with a teller, at an ATM, or via an electronic transfer from another bank. Each deposit results in a credit transaction to the customer's account.
 
-- [ ] **Withdrawals**
+- [✅] **Withdrawals**
   - This feature allows customers to take funds out of their bank accounts. Similar to deposits, withdrawals can be made at a branch, an ATM, or by making a payment or transfer to another account. Each withdrawal results in a debit transaction from the customer's account.
 
 - [ ] **Transfer (Auth Payment, Capture, Settlement)**
