@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-public class DepositResponse {
+public class AccountResponse {
     private Long transactionId;
     private BigDecimal currentBalance;
 }
