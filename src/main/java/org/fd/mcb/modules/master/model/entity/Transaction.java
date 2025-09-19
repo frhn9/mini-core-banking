@@ -52,6 +52,12 @@ public class Transaction {
     @Column(name = "amount", precision = 18, scale = 2, nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "reference_number", length = 100, unique = true)
+    private String referenceNumber;
+
+    @Column(name = "status", length = 20)
+    private String status;
+
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private ZonedDateTime createdAt;
 }

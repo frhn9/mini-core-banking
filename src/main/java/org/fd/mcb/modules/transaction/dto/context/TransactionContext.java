@@ -21,4 +21,8 @@ public class TransactionContext {
 
     private PaymentType paymentType;
 
+    private String referenceNumber;
+
+    private String status;
+
 }

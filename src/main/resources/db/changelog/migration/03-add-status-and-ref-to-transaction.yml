@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: fadhyl
+      changes:
+        - addColumn:
+            tableName: transactions
+            columns:
+              - column:
+                  name: status
+                  type: varchar(20)
+              - column:
+                  name: reference_number
+                  type: varchar(100)
+        - addUniqueConstraint:
+            tableName: transactions
+            columnNames: reference_number
+            constraintName: uc_transaction_reference_number
