@@ -1,0 +1,127 @@
+@startuml Mini Core Banking System ERD
+
+' Use Smetana layout engine (built-in, doesn't require Graphviz)
+!pragma layout smetana
+
+' Use proper ER diagram syntax
+skinparam linetype ortho
+hide circle
+skinparam roundcorner 5
+
+entity "customers" as customers {
+  * **id** : BIGINT <<PK>>
+  --
+  * cin : VARCHAR(50) <<UQ>>
+  full_name : VARCHAR(100)
+  national_id : VARCHAR(20)
+  email : VARCHAR(100)
+  phone_number : VARCHAR(20)
+  address : TEXT
+  created_at : TIMESTAMP
+  deleted_at : TIMESTAMP
+  is_blocked_by_bank : BOOLEAN
+  blocked_by_bank_reason : VARCHAR(50)
+  status : VARCHAR(50)
+  account_balance_derived : DECIMAL(18,2)
+}
+
+entity "bank_accounts" as bank_accounts {
+  * **id** : BIGINT <<PK>>
+  --
+  * customer_id : BIGINT <<FK>>
+  * account_number : VARCHAR(30) <<UQ>>
+  account_type : VARCHAR(50)
+  balance : DECIMAL(18,2)
+  status : VARCHAR(50)
+  opened_at : TIMESTAMP
+}
+
+entity "payment_types" as payment_types {
+  * **id** : INTEGER <<PK>>
+  --
+  name : VARCHAR(50)
+  description : TEXT
+}
+
+entity "transactions" as transactions {
+  * **id** : BIGINT <<PK>>
+  --
+  source_account_id : BIGINT <<FK>>
+  destination_account_id : BIGINT <<FK>>
+  * payment_type_id : INTEGER <<FK>>
+  provider_ref : VARCHAR(100)
+  channel : VARCHAR(50)
+  additional_info : TEXT
+  amount : DECIMAL(18,2)
+  created_at : TIMESTAMP
+}
+
+entity "journal_entries" as journal_entries {
+  * **id** : BIGINT <<PK>>
+  --
+  * transaction_id : BIGINT <<FK>>
+  * account_id : BIGINT <<FK>>
+  entry_type : VARCHAR(50)
+  amount : DECIMAL(18,2)
+  created_at : TIMESTAMP
+}
+
+entity "charge_transactions" as charge_transactions {
+  * **id** : BIGINT <<PK>>
+  --
+  * transaction_id : BIGINT <<FK>>
+  fee_type : VARCHAR(50)
+  amount : DECIMAL(18,2)
+  created_at : TIMESTAMP
+}
+
+entity "staff" as staff {
+  * **id** : BIGINT <<PK>>
+  --
+  * username : VARCHAR(50) <<UQ>>
+  password : VARCHAR(255)
+  role : VARCHAR(50)
+  status : VARCHAR(50)
+  created_at : TIMESTAMP
+}
+
+entity "audit_logs" as audit_logs {
+  * **id** : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  action : VARCHAR(100)
+  details : TEXT
+  created_at : TIMESTAMP
+}
+
+' Relationships
+customers ||--o{ bank_accounts
+bank_accounts ||--o{ transactions : "source"
+bank_accounts ||--o{ transactions : "destination"
+payment_types ||--o{ transactions
+transactions ||--o{ journal_entries
+transactions ||--o{ charge_transactions
+bank_accounts ||--o{ journal_entries
+staff ||--o{ audit_logs
+
+' Notes
+note right of transactions
+  Financial transactions with
+  source/destination accounts.
+  Supports deposits, withdrawals,
+  and transfers.
+end note
+
+note left of journal_entries
+  Double-entry bookkeeping.
+  DEBIT for withdrawals,
+  CREDIT for deposits.
+end note
+
+note right of bank_accounts
+  Uses pessimistic locking
+  to prevent race conditions
+  on balance updates.
+end note
+
+@enduml

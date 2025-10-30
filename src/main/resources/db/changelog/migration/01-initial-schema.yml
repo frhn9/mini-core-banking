@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
+      author: system
       changes:
         - createTable:
             tableName: customers
