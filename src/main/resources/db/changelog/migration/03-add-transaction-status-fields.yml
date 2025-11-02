@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: system
+      changes:
+        - addColumn:
+            tableName: transactions
+            columns:
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: "COMPLETED"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: auth_code
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+
+        - sql:
+            sql: "UPDATE transactions SET status = 'COMPLETED' WHERE status IS NULL"

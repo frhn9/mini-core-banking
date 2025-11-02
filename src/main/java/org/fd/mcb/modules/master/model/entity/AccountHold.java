@@ -1,4 +1,3 @@
-
 package org.fd.mcb.modules.master.model.entity;
 
 import jakarta.persistence.Column;
@@ -10,20 +9,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import org.fd.mcb.modules.master.enums.TransactionStatus;
+import org.fd.mcb.modules.master.enums.HoldStatus;
+import org.fd.mcb.modules.master.enums.HoldType;
 
 @Entity
-@Table(name = "transactions")
+@Table(name = "account_holds")
 @Getter
 @Setter
-public class Transaction {
+public class AccountHold {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,40 +30,30 @@ public class Transaction {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "source_account_id")
-    private BankAccount sourceAccount;
+    @JoinColumn(name = "account_id", nullable = false)
+    private BankAccount account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "destination_account_id")
-    private BankAccount destinationAccount;
+    @JoinColumn(name = "transaction_id", nullable = false)
+    private Transaction transaction;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_type_id")
-    private PaymentType paymentType;
-
-    @Column(name = "provider_ref", length = 100)
-    private String providerRef;
-
-    @Column(name = "channel", length = 50)
-    private String channel;
-
-    @Lob
-    @Column(name = "additional_info")
-    private String additionalInfo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "hold_type", length = 50, nullable = false)
+    private HoldType holdType;
 
     @Column(name = "amount", precision = 18, scale = 2, nullable = false)
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 50, nullable = false)
-    private TransactionStatus status = TransactionStatus.COMPLETED;
-
-    @Column(name = "auth_code", length = 50, unique = true)
-    private String authCode;
-
-    @Column(name = "expires_at")
-    private ZonedDateTime expiresAt;
+    private HoldStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private ZonedDateTime createdAt;
+
+    @Column(name = "released_at")
+    private ZonedDateTime releasedAt;
+
+    @Column(name = "expires_at")
+    private ZonedDateTime expiresAt;
 }

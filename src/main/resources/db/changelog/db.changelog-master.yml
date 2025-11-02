@@ -1,3 +1,11 @@
 databaseChangeLog:
   - include:
       file: db/changelog/migration/01-initial-schema.yml
+  - include:
+      file: db/changelog/migration/02-seeder-payment-type.yml
+  - include:
+      file: db/changelog/migration/03-add-transaction-status-fields.yml
+  - include:
+      file: db/changelog/migration/04-create-account-holds-table.yml
+  - include:
+      file: db/changelog/migration/05-seed-payment-types-transfer.yml

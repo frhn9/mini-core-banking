@@ -76,6 +76,12 @@ public class AccountServiceImpl implements AccountService {
         Transaction transaction = transactionCommandAdapter.save(transactionContext);
 
         bankAccount.setBalance(bankAccount.getBalance().add(request.getAmount()));
+        // Update available balance (if null, initialize it)
+        if (bankAccount.getAvailableBalance() == null) {
+            bankAccount.setAvailableBalance(bankAccount.getBalance());
+        } else {
+            bankAccount.setAvailableBalance(bankAccount.getAvailableBalance().add(request.getAmount()));
+        }
         bankAccountCommandAdapter.save(bankAccount);
 
         JournalEntryContext journalEntryContext = JournalEntryContext.builder()
@@ -101,7 +107,8 @@ public class AccountServiceImpl implements AccountService {
 
         CompletableFuture<BankAccount> bankAccountFuture = CompletableFuture.supplyAsync(() -> {
             BankAccount ba = bankAccountQueryAdapter.findByAccountNumber(request.getAccountNumber(), AccountType.SAVINGS);
-            TransactionUtil.validateBalance(ba.getBalance(), request.getAmount());
+            // Validate available balance (respects holds)
+            TransactionUtil.validateBalance(ba.getAvailableBalance() != null ? ba.getAvailableBalance() : ba.getBalance(), request.getAmount());
             return ba;
         }, virtualThreadExecutor);
         CompletableFuture<PaymentType> paymentTypeFuture = CompletableFuture.supplyAsync(() ->
@@ -121,6 +128,12 @@ public class AccountServiceImpl implements AccountService {
         Transaction transaction = transactionCommandAdapter.save(transactionContext);
 
         bankAccount.setBalance(bankAccount.getBalance().subtract(request.getAmount()));
+        // Update available balance (if null, initialize it first)
+        if (bankAccount.getAvailableBalance() == null) {
+            bankAccount.setAvailableBalance(bankAccount.getBalance());
+        } else {
+            bankAccount.setAvailableBalance(bankAccount.getAvailableBalance().subtract(request.getAmount()));
+        }
         bankAccountCommandAdapter.save(bankAccount);
 
         JournalEntryContext journalEntryContext = JournalEntryContext.builder()
