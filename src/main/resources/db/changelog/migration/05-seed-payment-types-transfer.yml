@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: system
+      changes:
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "WITHDRAWAL"
+              - column:
+                  name: description
+                  value: "Withdrawal transaction"
+
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "TRANSFER_AUTH"
+              - column:
+                  name: description
+                  value: "Transfer authorization (hold funds)"
+
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "TRANSFER_CAPTURE"
+              - column:
+                  name: description
+                  value: "Transfer capture (complete transfer)"
+
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "TRANSFER_REVERSAL"
+              - column:
+                  name: description
+                  value: "Transfer reversal (cancel authorization)"

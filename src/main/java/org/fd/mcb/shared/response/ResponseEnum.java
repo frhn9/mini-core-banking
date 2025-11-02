@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 public enum ResponseEnum {
   SUCCESS("success", "success", HttpStatus.OK),
   BALANCE_INSUFFICIENT("balance_insufficient", "balance.insufficient", HttpStatus.BAD_REQUEST),
+  AVAILABLE_BALANCE_INSUFFICIENT("available_balance_insufficient", "available.balance.insufficient", HttpStatus.BAD_REQUEST),
   SAVINGS_ACCOUNT_NOT_FOUND("savings_account_not_found", "savings.account.not.found", HttpStatus.NOT_FOUND),
   PAYMENT_TYPE_NOT_FOUND("payment_type_not_found", "payment.type.not.found", HttpStatus.NOT_FOUND),
   USER_BLOCKED_BY_BANK("user_blocked_by_bank", "user.blocked.by.bank", HttpStatus.FORBIDDEN),

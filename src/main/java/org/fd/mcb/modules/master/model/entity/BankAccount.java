@@ -43,10 +43,17 @@ public class BankAccount {
     @Column(name = "balance", precision = 18, scale = 2)
     private BigDecimal balance;
 
+    @Column(name = "available_balance", precision = 18, scale = 2)
+    private BigDecimal availableBalance;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private AccountStatus status;
 
     @Column(name = "opened_at")
     private ZonedDateTime openedAt;
+
+    public void updateAvailableBalance(BigDecimal totalHolds) {
+        this.availableBalance = this.balance.subtract(totalHolds);
+    }
 }
