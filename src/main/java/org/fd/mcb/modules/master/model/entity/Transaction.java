@@ -65,6 +65,12 @@ public class Transaction {
     @Column(name = "expires_at")
     private ZonedDateTime expiresAt;
 
+    @Column(name = "captured_at")
+    private ZonedDateTime capturedAt;
+
+    @Column(name = "settled_at")
+    private ZonedDateTime settledAt;
+
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private ZonedDateTime createdAt;
 }

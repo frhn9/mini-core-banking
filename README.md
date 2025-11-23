@@ -19,7 +19,7 @@ Progress :
 - [✅] **Withdrawals**
   - This feature allows customers to take funds out of their bank accounts. Similar to deposits, withdrawals can be made at a branch, an ATM, or by making a payment or transfer to another account. Each withdrawal results in a debit transaction from the customer's account.
 
-- [ ] **Transfer (Auth Payment, Capture, Settlement)**
+- [✅] **Transfer (Auth Payment, Capture, Settlement)**
   - This feature handles the process of moving funds from one account to another, and is broken down into three key steps:
     - **Authorization (Auth Payment):** When a transfer is initiated, the system first checks if the sender has sufficient funds and places a temporary hold on the transfer amount. This ensures the funds are available and reserved for the transaction.
     - **Capture:** Once the transfer is confirmed (e.g., after a 2FA verification), the funds are "captured" and debited from the sender's account.
