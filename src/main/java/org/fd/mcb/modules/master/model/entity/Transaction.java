@@ -12,11 +12,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.fd.mcb.modules.journalentry.model.entity.JournalEntry;
 import org.fd.mcb.modules.master.enums.TransactionStatus;
 
 @Entity
@@ -73,4 +77,7 @@ public class Transaction {
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private ZonedDateTime createdAt;
+
+    @OneToMany(mappedBy = "transaction", fetch = FetchType.LAZY)
+    private List<JournalEntry> journalEntries = new ArrayList<>();
 }

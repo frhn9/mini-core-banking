@@ -28,7 +28,7 @@ Progress :
 - [ ] **Notifications**
   - This feature keeps customers and staff informed about important events. Notifications can be sent for a variety of reasons, such as confirming a transaction, alerting to a low account balance, or notifying about a login from a new device. These are typically delivered via email, SMS, or push notifications to a mobile app.
 
-- [ ] **Adding journal entries manually**
+- [✅] **Adding journal entries manually**
   - This is an administrative feature for bank staff. A journal entry is the fundamental record of a financial transaction, consisting of debits and credits. This feature allows authorized staff (like accountants or auditors) to manually create journal entries to correct errors, record offline transactions, or make other financial adjustments that are not handled by the automated system.
 
 - [ ] **Auditing/Reporting**

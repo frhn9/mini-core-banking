@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/migration/05-seed-payment-types-transfer.yml
   - include:
       file: db/changelog/migration/06-add-capture-settlement-timestamps.yml
+  - include:
+      file: db/changelog/migration/07-seed-payment-types-manual.yml
