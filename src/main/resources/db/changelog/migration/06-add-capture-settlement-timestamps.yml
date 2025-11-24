@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: system
+      changes:
+        - addColumn:
+            tableName: transactions
+            columns:
+              - column:
+                  name: captured_at
+                  type: TIMESTAMP
+              - column:
+                  name: settled_at
+                  type: TIMESTAMP

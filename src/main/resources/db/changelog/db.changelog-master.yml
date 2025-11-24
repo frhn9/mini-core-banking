@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/migration/04-create-account-holds-table.yml
   - include:
       file: db/changelog/migration/05-seed-payment-types-transfer.yml
+  - include:
+      file: db/changelog/migration/06-add-capture-settlement-timestamps.yml

@@ -14,6 +14,11 @@ public enum ResponseEnum {
   BANK_ACCOUNT_NOT_FOUND("bank_account_not_found", "bank.account.not.found", HttpStatus.NOT_FOUND),
   BANK_ACCOUNT_NOT_ACTIVE("bank_account_not_active", "bank.account.not.active", HttpStatus.BAD_REQUEST),
   INVALID_AMOUNT("invalid_amount", "invalid.amount", HttpStatus.BAD_REQUEST),
+  AUTHORIZATION_NOT_FOUND("authorization_not_found", "authorization.not.found", HttpStatus.NOT_FOUND),
+  AUTHORIZATION_EXPIRED("authorization_expired", "authorization.expired", HttpStatus.BAD_REQUEST),
+  INVALID_TRANSACTION_STATUS("invalid_transaction_status", "invalid.transaction.status", HttpStatus.BAD_REQUEST),
+  TRANSFER_ALREADY_CAPTURED("transfer_already_captured", "transfer.already.captured", HttpStatus.BAD_REQUEST),
+  TRANSFER_ALREADY_SETTLED("transfer_already_settled", "transfer.already.settled", HttpStatus.BAD_REQUEST),
 
   INVALID_PARAM("invalid_param", "invalid.param", HttpStatus.BAD_REQUEST),
   INTERNAL_SERVER_ERROR("internal_server_error", "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);
