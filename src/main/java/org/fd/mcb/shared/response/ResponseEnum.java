@@ -24,6 +24,13 @@ public enum ResponseEnum {
   INVALID_JOURNAL_ENTRY("invalid_journal_entry", "invalid.journal.entry", HttpStatus.BAD_REQUEST),
   JOURNAL_ENTRY_NOT_FOUND("journal_entry_not_found", "journal.entry.not.found", HttpStatus.NOT_FOUND),
 
+  // Reconciliation-related errors
+  ACCOUNT_RECONCILIATION_BLOCKED("account_reconciliation_blocked", "account.reconciliation.blocked", HttpStatus.FORBIDDEN),
+  TRANSACTION_LIMIT_EXCEEDED("transaction_limit_exceeded", "transaction.limit.exceeded", HttpStatus.BAD_REQUEST),
+  RECONCILIATION_POOL_INSUFFICIENT_FUNDS("reconciliation_pool_insufficient_funds", "reconciliation.pool.insufficient.funds", HttpStatus.INTERNAL_SERVER_ERROR),
+  RECONCILIATION_NOT_FOUND("reconciliation_not_found", "reconciliation.not.found", HttpStatus.NOT_FOUND),
+  RECONCILIATION_IN_PROGRESS("reconciliation_in_progress", "reconciliation.in.progress", HttpStatus.CONFLICT),
+
   INVALID_PARAM("invalid_param", "invalid.param", HttpStatus.BAD_REQUEST),
   INTERNAL_SERVER_ERROR("internal_server_error", "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);
 

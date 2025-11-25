@@ -34,5 +34,5 @@ Progress :
 - [ ] **Auditing/Reporting**
   - This feature provides a comprehensive record of all activities within the system. Every significant action, from customer transactions to changes made by staff, is logged for security and compliance purposes. This allows the bank to generate reports for internal analysis, track down issues, and provide necessary documentation to external auditors or regulatory bodies.
 
-- [ ] **Reconciliation scheduler at EoD**
+- [✅] **Reconciliation scheduler at EoD**
   - This is an automated process that runs at the End of Day (EoD). It compares all the transactions recorded in the system throughout the day against a master ledger to ensure that all entries are consistent and that the books are balanced. This is a critical process for maintaining financial integrity and accuracy.

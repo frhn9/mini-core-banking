@@ -1,0 +1,238 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: system
+      changes:
+        # Create reconciliation_reports table
+        - createTable:
+            tableName: reconciliation_reports
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: reconciliation_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: started_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP
+              - column:
+                  name: total_discrepancies
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: system_balanced
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_debits
+                  type: DECIMAL(18, 2)
+              - column:
+                  name: total_credits
+                  type: DECIMAL(18, 2)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        # Create reconciliation_discrepancies table
+        - createTable:
+            tableName: reconciliation_discrepancies
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: report_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_discrepancies_report_id
+                    references: reconciliation_reports(id)
+              - column:
+                  name: discrepancy_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expected_value
+                  type: VARCHAR(255)
+              - column:
+                  name: actual_value
+                  type: VARCHAR(255)
+              - column:
+                  name: severity
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: auto_corrected
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        # Create account_limits table for soft limits
+        - createTable:
+            tableName: account_limits
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account_limits_account_id
+                    references: bank_accounts(id)
+              - column:
+                  name: tier
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_withdrawal
+                  type: DECIMAL(18, 2)
+              - column:
+                  name: max_transfer_out
+                  type: DECIMAL(18, 2)
+              - column:
+                  name: daily_limit
+                  type: DECIMAL(18, 2)
+              - column:
+                  name: reason
+                  type: VARCHAR(500)
+              - column:
+                  name: applied_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+
+        # Add reconciliation fields to bank_accounts
+        - addColumn:
+            tableName: bank_accounts
+            columns:
+              - column:
+                  name: reconciled_balance
+                  type: DECIMAL(18, 2)
+                  remarks: "Last verified balance from reconciliation"
+              - column:
+                  name: pending_correction
+                  type: DECIMAL(18, 2)
+                  remarks: "Amount of discrepancy needing correction"
+              - column:
+                  name: last_reconciled_at
+                  type: TIMESTAMP
+                  remarks: "Last successful reconciliation timestamp"
+              - column:
+                  name: reconciliation_blocked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+        # Create indexes for better query performance
+        - createIndex:
+            indexName: idx_reconciliation_reports_date
+            tableName: reconciliation_reports
+            columns:
+              - column:
+                  name: reconciliation_date
+
+        - createIndex:
+            indexName: idx_reconciliation_reports_status
+            tableName: reconciliation_reports
+            columns:
+              - column:
+                  name: status
+
+        - createIndex:
+            indexName: idx_discrepancies_report_id
+            tableName: reconciliation_discrepancies
+            columns:
+              - column:
+                  name: report_id
+
+        - createIndex:
+            indexName: idx_discrepancies_severity
+            tableName: reconciliation_discrepancies
+            columns:
+              - column:
+                  name: severity
+
+        - createIndex:
+            indexName: idx_discrepancies_entity
+            tableName: reconciliation_discrepancies
+            columns:
+              - column:
+                  name: entity_type
+              - column:
+                  name: entity_id
+
+        - createIndex:
+            indexName: idx_account_limits_account_id
+            tableName: account_limits
+            columns:
+              - column:
+                  name: account_id
+
+        - createIndex:
+            indexName: idx_bank_accounts_reconciliation_blocked
+            tableName: bank_accounts
+            columns:
+              - column:
+                  name: reconciliation_blocked

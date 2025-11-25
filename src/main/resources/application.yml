@@ -27,6 +27,29 @@ spring:
   jackson:
     time-zone: Asia/Jakarta
 
+reconciliation:
+  pool:
+    account-number: "RECONCILIATION-POOL"
+    low-balance-threshold: 10000.00
+  severity-thresholds:
+    low: 10.00
+    medium: 100.00
+    high: 1000.00
+  tier-limits:
+    tier-2:
+      max-withdrawal: 5000.00
+      daily-limit: 10000.00
+    tier-3:
+      max-withdrawal: 2000.00
+      max-transfer-out: 2000.00
+      daily-limit: 5000.00
+    tier-4:
+      max-withdrawal: 500.00
+      daily-limit: 1000.00
+  auto-correct-enabled: true
+  notifications:
+    operations-email: ops@bank.com
+
 logbook:
   format:
     style: splunk

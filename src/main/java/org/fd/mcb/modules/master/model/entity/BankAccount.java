@@ -53,7 +53,38 @@ public class BankAccount {
     @Column(name = "opened_at")
     private ZonedDateTime openedAt;
 
+    @Column(name = "reconciled_balance", precision = 18, scale = 2)
+    private BigDecimal reconciledBalance;
+
+    @Column(name = "pending_correction", precision = 18, scale = 2)
+    private BigDecimal pendingCorrection;
+
+    @Column(name = "last_reconciled_at")
+    private ZonedDateTime lastReconciledAt;
+
+    @Column(name = "reconciliation_blocked", nullable = false)
+    private Boolean reconciliationBlocked = false;
+
     public void updateAvailableBalance(BigDecimal totalHolds) {
         this.availableBalance = this.balance.subtract(totalHolds);
+    }
+
+    public boolean hasPendingCorrection() {
+        return pendingCorrection != null && pendingCorrection.compareTo(BigDecimal.ZERO) != 0;
+    }
+
+    public BigDecimal getCustomerAvailableBalance() {
+        if (pendingCorrection == null) {
+            return availableBalance;
+        }
+
+        // Conservative: use lower of reconciled vs working balance
+        BigDecimal conservative = reconciledBalance != null ?
+            reconciledBalance.min(balance) : balance;
+
+        // Subtract safety margin if discrepancy exists
+        BigDecimal safetyMargin = pendingCorrection.abs();
+
+        return conservative.subtract(safetyMargin);
     }
 }
