@@ -19,6 +19,17 @@ public enum ResponseEnum {
   INVALID_TRANSACTION_STATUS("invalid_transaction_status", "invalid.transaction.status", HttpStatus.BAD_REQUEST),
   TRANSFER_ALREADY_CAPTURED("transfer_already_captured", "transfer.already.captured", HttpStatus.BAD_REQUEST),
   TRANSFER_ALREADY_SETTLED("transfer_already_settled", "transfer.already.settled", HttpStatus.BAD_REQUEST),
+  UNBALANCED_JOURNAL_ENTRY("unbalanced_journal_entry", "journal.entry.unbalanced", HttpStatus.BAD_REQUEST),
+  NEGATIVE_BALANCE_NOT_ALLOWED("negative_balance_not_allowed", "negative.balance.not.allowed", HttpStatus.BAD_REQUEST),
+  INVALID_JOURNAL_ENTRY("invalid_journal_entry", "invalid.journal.entry", HttpStatus.BAD_REQUEST),
+  JOURNAL_ENTRY_NOT_FOUND("journal_entry_not_found", "journal.entry.not.found", HttpStatus.NOT_FOUND),
+
+  // Reconciliation-related errors
+  ACCOUNT_RECONCILIATION_BLOCKED("account_reconciliation_blocked", "account.reconciliation.blocked", HttpStatus.FORBIDDEN),
+  TRANSACTION_LIMIT_EXCEEDED("transaction_limit_exceeded", "transaction.limit.exceeded", HttpStatus.BAD_REQUEST),
+  RECONCILIATION_POOL_INSUFFICIENT_FUNDS("reconciliation_pool_insufficient_funds", "reconciliation.pool.insufficient.funds", HttpStatus.INTERNAL_SERVER_ERROR),
+  RECONCILIATION_NOT_FOUND("reconciliation_not_found", "reconciliation.not.found", HttpStatus.NOT_FOUND),
+  RECONCILIATION_IN_PROGRESS("reconciliation_in_progress", "reconciliation.in.progress", HttpStatus.CONFLICT),
 
   INVALID_PARAM("invalid_param", "invalid.param", HttpStatus.BAD_REQUEST),
   INTERNAL_SERVER_ERROR("internal_server_error", "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);

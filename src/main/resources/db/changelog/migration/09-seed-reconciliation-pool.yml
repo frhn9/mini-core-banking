@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: system
+      changes:
+        # Create system customer for internal accounts
+        - insert:
+            tableName: customers
+            columns:
+              - column:
+                  name: name
+                  value: "SYSTEM"
+              - column:
+                  name: email
+                  value: "system@internal.bank"
+              - column:
+                  name: phone
+                  value: "0000000000"
+              - column:
+                  name: address
+                  value: "Internal System Account"
+
+        # Create reconciliation pool account
+        - insert:
+            tableName: bank_accounts
+            columns:
+              - column:
+                  name: customer_id
+                  valueComputed: "(SELECT id FROM customers WHERE email = 'system@internal.bank')"
+              - column:
+                  name: account_number
+                  value: "RECONCILIATION-POOL"
+              - column:
+                  name: account_type
+                  value: "SYSTEM"
+              - column:
+                  name: balance
+                  value: "100000.00"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: opened_at
+                  valueComputed: "CURRENT_TIMESTAMP"
+              - column:
+                  name: available_balance
+                  value: "100000.00"
+              - column:
+                  name: reconciliation_blocked
+                  valueBoolean: false

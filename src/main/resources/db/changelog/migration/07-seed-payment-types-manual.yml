@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: system
+      changes:
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "MANUAL_ADJUSTMENT"
+              - column:
+                  name: description
+                  value: "Manual journal entry adjustment by staff"
+
+        - insert:
+            tableName: payment_types
+            columns:
+              - column:
+                  name: name
+                  value: "MANUAL_REVERSAL"
+              - column:
+                  name: description
+                  value: "Manual journal entry reversal by staff"

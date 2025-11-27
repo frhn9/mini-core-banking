@@ -28,11 +28,11 @@ Progress :
 - [ ] **Notifications**
   - This feature keeps customers and staff informed about important events. Notifications can be sent for a variety of reasons, such as confirming a transaction, alerting to a low account balance, or notifying about a login from a new device. These are typically delivered via email, SMS, or push notifications to a mobile app.
 
-- [ ] **Adding journal entries manually**
+- [✅] **Adding journal entries manually**
   - This is an administrative feature for bank staff. A journal entry is the fundamental record of a financial transaction, consisting of debits and credits. This feature allows authorized staff (like accountants or auditors) to manually create journal entries to correct errors, record offline transactions, or make other financial adjustments that are not handled by the automated system.
 
 - [ ] **Auditing/Reporting**
   - This feature provides a comprehensive record of all activities within the system. Every significant action, from customer transactions to changes made by staff, is logged for security and compliance purposes. This allows the bank to generate reports for internal analysis, track down issues, and provide necessary documentation to external auditors or regulatory bodies.
 
-- [ ] **Reconciliation scheduler at EoD**
+- [✅] **Reconciliation scheduler at EoD**
   - This is an automated process that runs at the End of Day (EoD). It compares all the transactions recorded in the system throughout the day against a master ledger to ensure that all entries are consistent and that the books are balanced. This is a critical process for maintaining financial integrity and accuracy.
