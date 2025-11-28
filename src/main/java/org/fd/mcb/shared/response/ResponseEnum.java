@@ -31,6 +31,11 @@ public enum ResponseEnum {
   RECONCILIATION_NOT_FOUND("reconciliation_not_found", "reconciliation.not.found", HttpStatus.NOT_FOUND),
   RECONCILIATION_IN_PROGRESS("reconciliation_in_progress", "reconciliation.in.progress", HttpStatus.CONFLICT),
 
+  // Customer-related errors
+  CUSTOMER_CIN_ALREADY_EXISTS("customer_cin_already_exists", "customer.cin.already.exists", HttpStatus.CONFLICT),
+  CUSTOMER_EMAIL_ALREADY_EXISTS("customer_email_already_exists", "customer.email.already.exists", HttpStatus.CONFLICT),
+  CUSTOMER_NATIONAL_ID_ALREADY_EXISTS("customer_national_id_already_exists", "customer.national.id.already.exists", HttpStatus.CONFLICT),
+
   INVALID_PARAM("invalid_param", "invalid.param", HttpStatus.BAD_REQUEST),
   INTERNAL_SERVER_ERROR("internal_server_error", "internal.server.error", HttpStatus.INTERNAL_SERVER_ERROR);
 

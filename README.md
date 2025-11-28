@@ -2,7 +2,7 @@
 
 Progress :
 
-- [ ] **Customer Registration**
+- [✅] **Customer Registration**
   - This feature allows new customers to be onboarded into the banking system. The process typically involves capturing personal information (name, address, national ID), performing Know Your Customer (KYC) checks to verify their identity, and creating a unique Customer Identification Number (CIN). Upon successful registration, a customer profile is created, and they can then open bank accounts.
 
 - [ ] **Authentication with JWT and 2FA**
