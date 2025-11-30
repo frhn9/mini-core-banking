@@ -21,6 +21,9 @@ import org.fd.mcb.modules.transaction.dto.request.TransferAuthRequest;
 import org.fd.mcb.modules.transaction.dto.response.TransferAuthResponse;
 import org.fd.mcb.modules.transaction.service.TransferAuthorizationService;
 import org.fd.mcb.shared.exception.InsufficientAvailableBalanceException;
+import org.fd.mcb.shared.notification.annotation.Notify;
+import org.fd.mcb.shared.notification.enums.NotificationChannel;
+import org.fd.mcb.shared.notification.enums.NotificationEvent;
 import org.fd.mcb.shared.util.TransactionUtil;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.dao.PessimisticLockingFailureException;
@@ -58,6 +61,10 @@ public class TransferAuthorizationServiceImpl implements TransferAuthorizationSe
             retryFor = {SQLException.class, PessimisticLockingFailureException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100)
+    )
+    @Notify(
+            event = NotificationEvent.TRANSFER_AUTHORIZED,
+            channels = {NotificationChannel.LOG, NotificationChannel.EMAIL, NotificationChannel.SMS}
     )
     public TransferAuthResponse authorizeTransfer(TransferAuthRequest request) {
         TransactionUtil.validateInvalidAmount(request.getAmount());

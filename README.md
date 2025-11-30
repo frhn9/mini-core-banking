@@ -25,8 +25,20 @@ Progress :
     - **Capture:** Once the transfer is confirmed (e.g., after a 2FA verification), the funds are "captured" and debited from the sender's account.
     - **Settlement:** The final step is to credit the funds to the recipient's account, completing the transfer.
 
-- [ ] **Notifications**
-  - This feature keeps customers and staff informed about important events. Notifications can be sent for a variety of reasons, such as confirming a transaction, alerting to a low account balance, or notifying about a login from a new device. These are typically delivered via email, SMS, or push notifications to a mobile app.
+- [✅] **Notifications**
+  - This feature keeps customers and staff informed about important events through multiple channels (Email, SMS, Push notifications).
+  - **Implementation:** Uses AOP-based `@Notify` annotation on transaction methods (deposit, withdrawal, transfer operations).
+  - **Channels Supported:**
+    - Email (Spring Mail with HTML templates)
+    - SMS (Twilio integration, currently using mock)
+    - Push Notifications (Firebase Cloud Messaging, currently using mock)
+    - Logging (development/testing)
+  - **Features:**
+    - Asynchronous notification sending using virtual threads
+    - Multi-channel support with channel selection per event
+    - Template-based messages with variable substitution
+    - Configurable via `application.yml`
+  - **Events:** Deposit success, withdrawal success, transfer authorized, transfer captured, transfer settled
 
 - [✅] **Adding journal entries manually**
   - This is an administrative feature for bank staff. A journal entry is the fundamental record of a financial transaction, consisting of debits and credits. This feature allows authorized staff (like accountants or auditors) to manually create journal entries to correct errors, record offline transactions, or make other financial adjustments that are not handled by the automated system.

@@ -17,6 +17,9 @@ import org.fd.mcb.modules.transaction.dto.request.DepositWithdrawReq;
 import org.fd.mcb.modules.transaction.dto.response.AccountResponse;
 import org.fd.mcb.modules.transaction.mapper.AccountMapper;
 import org.fd.mcb.modules.transaction.service.AccountService;
+import org.fd.mcb.shared.notification.annotation.Notify;
+import org.fd.mcb.shared.notification.enums.NotificationChannel;
+import org.fd.mcb.shared.notification.enums.NotificationEvent;
 import org.fd.mcb.shared.util.TransactionUtil;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.dao.PessimisticLockingFailureException;
@@ -51,6 +54,10 @@ public class AccountServiceImpl implements AccountService {
             retryFor = {SQLException.class, PessimisticLockingFailureException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100)
+    )
+    @Notify(
+            event = NotificationEvent.DEPOSIT_SUCCESS,
+            channels = {NotificationChannel.LOG, NotificationChannel.EMAIL, NotificationChannel.SMS}
     )
     public AccountResponse deposit(DepositWithdrawReq request) {
         TransactionUtil.validateInvalidAmount(request.getAmount());
@@ -101,6 +108,10 @@ public class AccountServiceImpl implements AccountService {
             retryFor = {SQLException.class, PessimisticLockingFailureException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100)
+    )
+    @Notify(
+            event = NotificationEvent.WITHDRAWAL_SUCCESS,
+            channels = {NotificationChannel.LOG, NotificationChannel.EMAIL, NotificationChannel.SMS}
     )
     public AccountResponse withdrawal(DepositWithdrawReq request) {
         TransactionUtil.validateInvalidAmount(request.getAmount());

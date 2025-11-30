@@ -15,6 +15,9 @@ import org.fd.mcb.modules.transaction.service.TransferSettlementService;
 import org.fd.mcb.shared.exception.AuthorizationNotFoundException;
 import org.fd.mcb.shared.exception.InvalidTransactionStatusException;
 import org.fd.mcb.shared.exception.TransferAlreadySettledException;
+import org.fd.mcb.shared.notification.annotation.Notify;
+import org.fd.mcb.shared.notification.enums.NotificationChannel;
+import org.fd.mcb.shared.notification.enums.NotificationEvent;
 import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -40,6 +43,10 @@ public class TransferSettlementServiceImpl implements TransferSettlementService 
             retryFor = {SQLException.class, PessimisticLockingFailureException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100)
+    )
+    @Notify(
+            event = NotificationEvent.TRANSFER_SETTLED,
+            channels = {NotificationChannel.LOG, NotificationChannel.EMAIL, NotificationChannel.SMS}
     )
     public TransferSettlementResponse settleTransfer(TransferSettlementRequest request) {
         // 1. Find transaction by auth code (with pessimistic lock)

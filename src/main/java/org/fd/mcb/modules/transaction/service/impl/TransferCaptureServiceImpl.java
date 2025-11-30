@@ -19,6 +19,9 @@ import org.fd.mcb.modules.transaction.service.TransferCaptureService;
 import org.fd.mcb.shared.exception.AuthorizationExpiredException;
 import org.fd.mcb.shared.exception.AuthorizationNotFoundException;
 import org.fd.mcb.shared.exception.TransferAlreadyCapturedException;
+import org.fd.mcb.shared.notification.annotation.Notify;
+import org.fd.mcb.shared.notification.enums.NotificationChannel;
+import org.fd.mcb.shared.notification.enums.NotificationEvent;
 import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -47,6 +50,10 @@ public class TransferCaptureServiceImpl implements TransferCaptureService {
             retryFor = {SQLException.class, PessimisticLockingFailureException.class},
             maxAttempts = 5,
             backoff = @Backoff(delay = 100)
+    )
+    @Notify(
+            event = NotificationEvent.TRANSFER_CAPTURED,
+            channels = {NotificationChannel.LOG, NotificationChannel.EMAIL, NotificationChannel.SMS}
     )
     public TransferCaptureResponse captureTransfer(TransferCaptureRequest request) {
         // 1. Find transaction by auth code (with pessimistic lock)
