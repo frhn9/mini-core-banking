@@ -44,6 +44,15 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "password_hash", length = 255)
+    private String passwordHash;
+
+    @Column(name = "account_locked", nullable = false)
+    private Boolean accountLocked = false;
+
+    @Column(name = "last_login")
+    private ZonedDateTime lastLogin;
+
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
 

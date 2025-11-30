@@ -5,12 +5,12 @@ Progress :
 - [✅] **Customer Registration**
   - This feature allows new customers to be onboarded into the banking system. The process typically involves capturing personal information (name, address, national ID), performing Know Your Customer (KYC) checks to verify their identity, and creating a unique Customer Identification Number (CIN). Upon successful registration, a customer profile is created, and they can then open bank accounts.
 
-- [ ] **Authentication with JWT and 2FA**
+- [✅] **Authentication with JWT and 2FA**
   - This feature provides secure access for customers.
     - **JWT (JSON Web Token)** is used to manage login sessions. After a customer logs in with their credentials, a JWT is generated and sent to the client. This token is then included in subsequent requests to prove that the customer is authenticated.
     - **2FA (Two-Factor Authentication)** adds an extra layer of security by requiring a second form of verification in addition to a password, such as a one-time code sent to their phone or email.
 
-- [ ] **Staff Authentication**
+- [✅] **Staff Authentication**
   - This provides internal access to the banking system for employees. It typically uses a role-based access control (RBAC) system, where each staff member has a specific role (e.g., Teller, Admin, Auditor). This role determines what actions they can perform and what data they can access, ensuring that employees only have access to the information necessary for their job.
 
 - [✅] **Deposits**
@@ -28,7 +28,7 @@ Progress :
 - [✅] **Notifications**
   - This feature keeps customers and staff informed about important events through multiple channels (Email, SMS, Push notifications).
   - **Implementation:** Uses AOP-based `@Notify` annotation on transaction methods (deposit, withdrawal, transfer operations).
-  - **Channels Supported:**
+  - **Channels Supported:**Resume
     - Email (Spring Mail with HTML templates)
     - SMS (Twilio integration, currently using mock)
     - Push Notifications (Firebase Cloud Messaging, currently using mock)

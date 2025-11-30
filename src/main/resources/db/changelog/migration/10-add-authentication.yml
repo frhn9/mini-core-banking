@@ -1,0 +1,230 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-add-customer-authentication-fields
+      author: system
+      changes:
+        - addColumn:
+            tableName: customers
+            columns:
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true  # Allow null for existing customers during migration
+              - column:
+                  name: account_locked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_login
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 10-add-staff-last-login
+      author: system
+      changes:
+        - addColumn:
+            tableName: staff
+            columns:
+              - column:
+                  name: last_login
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 10-create-refresh-tokens-table
+      author: system
+      changes:
+        - createTable:
+            tableName: refresh_tokens
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: device_info
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ip_address
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: revoked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_used_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 10-create-user-sessions-table
+      author: system
+      changes:
+        - createTable:
+            tableName: user_sessions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_type
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: session_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: access_token_jti
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+                    unique: true
+              - column:
+                  name: refresh_token_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: device_info
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ip_address
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: user_agent
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_activity_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 10-add-foreign-key-user-sessions-to-refresh-tokens
+      author: system
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: user_sessions
+            baseColumnNames: refresh_token_id
+            constraintName: fk_user_sessions_refresh_token_id
+            referencedTableName: refresh_tokens
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 10-create-index-refresh-tokens-user
+      author: system
+      changes:
+        - createIndex:
+            indexName: idx_refresh_tokens_user
+            tableName: refresh_tokens
+            columns:
+              - column:
+                  name: user_type
+              - column:
+                  name: user_id
+
+  - changeSet:
+      id: 10-create-index-user-sessions-user
+      author: system
+      changes:
+        - createIndex:
+            indexName: idx_user_sessions_user
+            tableName: user_sessions
+            columns:
+              - column:
+                  name: user_type
+              - column:
+                  name: user_id
+
+  - changeSet:
+      id: 10-create-index-user-sessions-active
+      author: system
+      changes:
+        - createIndex:
+            indexName: idx_user_sessions_active
+            tableName: user_sessions
+            columns:
+              - column:
+                  name: active
+              - column:
+                  name: expires_at

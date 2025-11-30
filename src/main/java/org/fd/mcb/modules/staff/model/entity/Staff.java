@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import org.fd.mcb.modules.staff.enums.StaffRole;
@@ -29,8 +30,11 @@ public class Staff {
     @Column(name = "username", length = 50, unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "password_hash", nullable = false, length = 255)
+    private String passwordHash;
+
+    @Column(name = "last_login")
+    private ZonedDateTime lastLogin;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)

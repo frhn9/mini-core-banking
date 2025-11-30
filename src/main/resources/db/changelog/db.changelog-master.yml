@@ -17,3 +17,5 @@ databaseChangeLog:
       file: db/changelog/migration/08-reconciliation-schema.yml
   - include:
       file: db/changelog/migration/09-seed-reconciliation-pool.yml
+  - include:
+      file: db/changelog/migration/10-add-authentication.yml
